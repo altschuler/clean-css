@@ -198,25 +198,25 @@ vows.describe('clean-units').addBatch({
   }, { keepBreaks: true, keepSpecialComments: 0 }),
   'selectors': cssContext({
     'remove spaces around selectors': [
-      'div + span >   em',
-      'div+span>em'
+      'div + span >   em{}',
+      'div+span>em{}'
     ],
     'not remove spaces for pseudo-classes': [
-      'div :first-child',
-      'div :first-child'
+      'div :first-child{}',
+      'div :first-child{}'
     ],
     'strip universal selector when coming with id/class/attribute selectors': [
       [
-        '* > *#id > *.class',
-        '*>#id>.class'
+        '* > *#id > *.class{}',
+        '*>#id>.class{}'
       ],[
-        '*:first-child > *[data-id]',
-        ':first-child>[data-id]'
+        '*:first-child > *[data-id]{}',
+        ':first-child>[data-id]{}'
       ]
     ],
     'not strip standalone universal selector': [
-      'label ~ * + span',
-      'label~*+span'
+      'label ~ * + span{}',
+      'label~*+span{}'
     ],
     'not expand + in selectors mixed with calc methods': [
       'div{width:calc(50% + 3em)}div + div{width:100%}div:hover{width:calc(50% + 4em)}* > div {border:1px solid #f0f}',
@@ -597,8 +597,8 @@ vows.describe('clean-units').addBatch({
       'p{font-weight:700}'
     ],
     'font weight in font declarations': [
-      'font:normal 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif',
-      'font:400 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif'
+      'body{font:normal 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif}',
+      'body{font:400 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif}'
     ],
     'font weight in font declarations with fraction units': [
       'font:bold .9rem Helvetica',
@@ -629,7 +629,7 @@ vows.describe('clean-units').addBatch({
       'a{background:url("/images/long image name.png") 0 0 no-repeat}a{}a{background:url("/images/no-spaces.png") 0 0 no-repeat}',
       'a{background:url("/images/long image name.png") 0 0 no-repeat}a{}a{background:url(/images/no-spaces.png) 0 0 no-repeat}'
     ],
-    'not add a space before url\'s hash': "url(/fonts/d90b3358-e1e2-4abb-ba96-356983a54c22.svg#d90b3358-e1e2-4abb-ba96-356983a54c22)",
+    'not add a space before url\'s hash': "a{background:url(/fonts/d90b3358-e1e2-4abb-ba96-356983a54c22.svg#d90b3358-e1e2-4abb-ba96-356983a54c22)}",
     'keep urls from being stripped down #1': 'a{background:url(/image-1.0.png)}',
     'keep urls from being stripped down #2': "a{background:url(/image-white.png)}",
     'keep urls from being stripped down #3': "a{background:#eee url(/libraries/jquery-ui-1.10.1.custom/images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x}",
@@ -772,17 +772,17 @@ path")}',
       'a[data-href*=\'object1\']{border-color:red}a[data-href|=\'object2\']{border-color:#0f0}',
       'a[data-href*=object1]{border-color:red}a[data-href|=object2]{border-color:#0f0}'
     ],
-    'should keep special characters inside attributes #1': "a[data-css='color:white']",
-    'should keep special characters inside attributes #2': 'a[href="/version-0.01.html"]',
+    'should keep special characters inside attributes #1': "a[data-css='color:white']{}",
+    'should keep special characters inside attributes #2': 'a[href="/version-0.01.html"]{}',
     'should strip new lines inside attributes': [
       ".test[title='my very long \
-title']",
-      ".test[title='my very long title']"
+title']{}",
+      ".test[title='my very long title']{}"
     ],
     'should strip new lines inside attributes which can be unquoted': [
       ".test[title='my_very_long_\
-title']",
-      ".test[title=my_very_long_title]"
+title']{}",
+      ".test[title=my_very_long_title]{}"
     ]
   }),
   'ie filters': cssContext({
@@ -795,8 +795,8 @@ title']",
       'a{filter:chroma(color=#919191)}'
     ],
     'matrix filter spaces': [
-      "a{filter:progid:DXImageTransform.Microsoft.Matrix(M11=0.984, M22=0.984, M12=0.17, M21=-0.17, SizingMethod='auto expand')",
-      "a{filter:progid:DXImageTransform.Microsoft.Matrix(M11=.984, M22=.984, M12=.17, M21=-.17, SizingMethod='auto expand')"
+      "a{filter:progid:DXImageTransform.Microsoft.Matrix(M11=0.984, M22=0.984, M12=0.17, M21=-0.17, SizingMethod='auto expand')}",
+      "a{filter:progid:DXImageTransform.Microsoft.Matrix(M11=.984, M22=.984, M12=.17, M21=-.17, SizingMethod='auto expand')}"
     ],
     'multiple filters (IE7 issue)': [
       "a{filter:progid:DXImageTransform.Microsoft.Chroma(color=#919191) progid:DXImageTransform.Microsoft.Matrix(M11=0.984, M22=0.984, M12=0.17, M21=-0.17, SizingMethod='auto expand')}",
