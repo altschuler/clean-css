@@ -2,6 +2,7 @@
 ==================
 
 * Adds simplified and more advanced text escaping / restoring via EscapeStore class.
+* Adds CSS tokenizer which will make it possible to optimize content by reordering and/or merging selectors.
 
 1.1.2 / 2013-09-29
 ==================
