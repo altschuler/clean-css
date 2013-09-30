@@ -119,12 +119,12 @@ vows.describe('clean-units').addBatch({
       'a{color:#fff}'
     ],
     'not inside calc method #1': [
-      'a{width:-moz-calc(100% - 1em);width:calc(100% - 1em)}',
-      'a{width:-moz-calc(100% - 1em);width:calc(100% - 1em)}'
+      'a{width:-moz-calc(100% - 1em);height:calc(100% - 1em)}',
+      'a{width:-moz-calc(100% - 1em);height:calc(100% - 1em)}'
     ],
     'not inside calc method #2': [
-      'div{margin:-moz-calc(50% + 15px) -moz-calc(50% + 15px);margin:calc(50% + .5rem) calc(50% + .5rem)}',
-      'div{margin:-moz-calc(50% + 15px) -moz-calc(50% + 15px);margin:calc(50% + .5rem) calc(50% + .5rem)}'
+      'div{margin:-moz-calc(50% + 15px) -moz-calc(50% + 15px);padding:calc(50% + .5rem) calc(50% + .5rem)}',
+      'div{margin:-moz-calc(50% + 15px) -moz-calc(50% + 15px);padding:calc(50% + .5rem) calc(50% + .5rem)}'
     ],
     'not inside calc method with more parentheses': [
       'div{height:-moz-calc((10% + 12px)/2 + 10em)}',
@@ -162,20 +162,20 @@ vows.describe('clean-units').addBatch({
   }),
   'line breaks': cssContext({
     'line breaks': [
-      'div\na\r\n{width:500px}',
-      'div' + lineBreak + 'a' + lineBreak + '{width:500px}'
+      'div\na\r\n{width:500px}a{}',
+      'div a{width:500px}' + lineBreak + 'a{}'
     ],
     'line breaks #2': [
-      'div\na\r\n,p{width:500px}',
-      'div' + lineBreak + 'a' + lineBreak + ',p{width:500px}'
+      'div\na\r\n,p{width:500px}p{}',
+      'div a,p{width:500px}' + lineBreak + 'p{}'
     ],
     'multiple line breaks #2': [
-      'div \r\n\r\na\r\n,p{width:500px}',
-      'div' + lineBreak + 'a' + lineBreak + ',p{width:500px}'
+      'div \r\n\r\na\r\n,p{width:500px}a{color:red}',
+      'div a,p{width:500px}' + lineBreak + 'a{color:red}'
     ],
     'line breaks with whitespace lines': [
-      'div \n \t\n \na\r\n, p { width:500px }',
-      'div' + lineBreak + 'a' + lineBreak + ',p{width:500px}'
+      'div \n \t\n \na\r\n, p { width:500px }p{}',
+      'div a,p{width:500px}' + lineBreak + 'p{}'
     ],
     'charset not at beginning': [
       "a{ color: #f10; }\n@charset 'utf-8';\nb { font-weight: bolder}",
@@ -622,12 +622,12 @@ vows.describe('clean-units').addBatch({
       'a{background:url(/images/blank.png) 0 0 no-repeat}'
     ],
     'strip more': [
-      'a{background:url("/images/blank.png") 0 0 no-repeat}a{}a{background:url("/images/blank.png") 0 0 no-repeat}',
-      'a{background:url(/images/blank.png) 0 0 no-repeat}a{}a{background:url(/images/blank.png) 0 0 no-repeat}'
+      'a{background:url("/images/blank.png") 0 0 no-repeat}b{}p{background:url("/images/blank.png") 0 0 no-repeat}',
+      'a{background:url(/images/blank.png) 0 0 no-repeat}b{}p{background:url(/images/blank.png) 0 0 no-repeat}'
     ],
     'not strip comments if spaces inside': [
-      'a{background:url("/images/long image name.png") 0 0 no-repeat}a{}a{background:url("/images/no-spaces.png") 0 0 no-repeat}',
-      'a{background:url("/images/long image name.png") 0 0 no-repeat}a{}a{background:url(/images/no-spaces.png) 0 0 no-repeat}'
+      'a{background:url("/images/long image name.png") 0 0 no-repeat}b{}p{background:url("/images/no-spaces.png") 0 0 no-repeat}',
+      'a{background:url("/images/long image name.png") 0 0 no-repeat}b{}p{background:url(/images/no-spaces.png) 0 0 no-repeat}'
     ],
     'not add a space before url\'s hash': "a{background:url(/fonts/d90b3358-e1e2-4abb-ba96-356983a54c22.svg#d90b3358-e1e2-4abb-ba96-356983a54c22)}",
     'keep urls from being stripped down #1': 'a{background:url(/image-1.0.png)}',
@@ -1026,6 +1026,51 @@ title']{}",
     'of an unordered multiply repeated complex selector within a block #2': [
       '@media screen{a,#foo[data-path^="bar bar"],p,#foo[data-path^="bar bar"]{color:red}}',
       '@media screen{a,#foo[data-path^="bar bar"],p{color:red}}'
+    ]
+  }),
+  'duplicate selectors in a block': cssContext({
+    'of a duplicate selector': [
+      'a{color:red}a{color:red}',
+      'a{color:red}'
+    ],
+    'of a duplicate selectors separated by a block selector': [
+      'a{color:red}@font-face{font-family:A}a{color:red}',
+      'a{color:red}@font-face{font-family:A}'
+    ],
+    'of a duplicate selectors with slightly different properties': [
+      'a{color:red;display:block}a{color:red;display:inline-block;font-weight:400}',
+      'a{color:red;display:inline-block;font-weight:400}'
+    ],
+    'of a duplicate selector with !important': [
+      'a{color:blue!important}a{color:red}',
+      'a{color:#00f!important}'
+    ],
+    'of a duplicate selector with two !important rules': [
+      'a{color:blue!important}a{color:red!important}',
+      'a{color:red!important}'
+    ],
+    'of an unordered multiply repeated complex selector': [
+      '@media screen{#foo[data-path^="bar bar"]{color:red}p{}#foo[data-path^="bar bar"]{display:block}}',
+      '@media screen{#foo[data-path^="bar bar"]{color:red;display:block}p{}}'
+    ]
+  }),
+  'duplicate special blocks': cssContext({
+    '@font-face': '@font-face{font-family:A}@font-face{font-family:B}',
+    '@keyframes': '@keyframes a{from{opacity:0}to{opacity:1}}@keyframes b{from{opacity:0}to{opacity:1}}',
+    '@media': [
+      '@media screen{a{}}@media screen{b{}}',
+      '@media screen{a{}b{}}'
+    ]
+  }),
+  'duplicate properties': cssContext({
+    'next to each one': 'a{font-size:1.1rem;font-size:14px}',
+    'separated': [
+      'a{font-size:1.1rem;color:red;font-size:14px}',
+      'a{font-size:14px;color:red}'
+    ],
+    'from two selectors': [
+      'a{font-size:1.1rem}a{font-size:14px;color:red}',
+      'a{font-size:14px;color:red}'
     ]
   })
 }).export(module);

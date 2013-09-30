@@ -1,16 +1,14 @@
-html{margin:0;padding:0;border:0}
+html{margin:0;padding:0;border:0;font-size:100.01%}
 body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,dialog,figure,footer,header,hgroup,nav,section{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline}
 article,aside,dialog,figure,footer,header,hgroup,nav,section{display:block}
-body{line-height:1.5;background:#fff}
-table{border-collapse:separate;border-spacing:0}
+body{line-height:1.5;background:#fff;font-size:75%;color:#222;font-family:"Helvetica Neue",Arial,Helvetica,sans-serif}
+table{border-collapse:separate;border-spacing:0;margin-bottom:1.4em;width:100%}
 caption,th,td{text-align:left;font-weight:400;float:none!important}
 table,th,td{vertical-align:middle}
 blockquote:before,blockquote:after,q:before,q:after{content:''}
 blockquote,q{quotes:"" ""}
 a img{border:0}
 :focus{outline:0}
-html{font-size:100.01%}
-body{font-size:75%;color:#222;background:#fff;font-family:"Helvetica Neue",Arial,Helvetica,sans-serif}
 h1,h2,h3,h4,h5,h6{font-weight:400;color:#111}
 h1{font-size:3em;line-height:1;margin-bottom:.5em}
 h2{font-size:2em;margin-bottom:.75em}
@@ -42,7 +40,6 @@ ol{list-style-type:decimal}
 dl{margin:0 0 1.5em}
 dl dt{font-weight:700}
 dd{margin-left:1.5em}
-table{margin-bottom:1.4em;width:100%}
 th{font-weight:700}
 thead th{background:#c3d9ff}
 th,td,caption{padding:4px 10px 4px 5px}
@@ -87,7 +84,6 @@ form.inline p{margin-bottom:0}
 .container{width:950px;margin:0 auto}
 .showgrid{background:url(src/grid.png)}
 .column,.span-1,.span-2,.span-3,.span-4,.span-5,.span-6,.span-7,.span-8,.span-9,.span-10,.span-11,.span-12,.span-13,.span-14,.span-15,.span-16,.span-17,.span-18,.span-19,.span-20,.span-21,.span-22,.span-23,.span-24{float:left;margin-right:10px}
-.last{margin-right:0}
 .span-1{width:30px}
 .span-2{width:70px}
 .span-3{width:110px}

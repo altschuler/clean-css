@@ -6,7 +6,6 @@ table{border-collapse:separate;border-spacing:0}
 caption,th,td{text-align:left;font-weight:400}
 blockquote:before,blockquote:after,q:before,q:after{content:""}
 blockquote,q{quotes:"" ""}
-.clear{clear:both;display:inline-block}
+.clear{clear:both;display:block}
 .clear:after,.container:after{content:".";display:block;height:0;clear:both;visibility:hidden}
 * html .clear{height:1%}
-.clear{display:block}
